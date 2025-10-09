@@ -38,12 +38,21 @@ class UserController extends Controller
         return view('list_user', $data);
     }
 
-    public function store(Request $request)
-    {
-        $this->userModel->create([
-            'nama' => $request->input('nama'),
-            'email' => $request->input('email'),
-            'kelas_id' => $request->input('kelas_id'),
-        ]);
-    }
+public function store(Request $request)
+{
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'nim' => 'required|string|max:20|unique:user,nim',
+        'kelas_id' => 'required|exists:kelas,id',
+    ]);
+
+    $this->userModel->create([
+        'nama' => $request->input('nama'),
+        'nim' => $request->input('nim'),   
+        'kelas_id' => $request->input('kelas_id'),
+    ]);
+
+    return redirect()->route('user.index')->with('success', 'Pengguna baru berhasil ditambahkan.');
+}
+
 }

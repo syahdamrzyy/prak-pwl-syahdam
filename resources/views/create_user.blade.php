@@ -1,23 +1,45 @@
 @extends('layouts.app')
+
 @section('content')
-<div>
-    <h1>Buat Pengguna Baru</h1>
-    <form action="{{ route('user.store') }}" method="POST">
-        @csrf
-        <label for="nama">Nama:</label><br>
-        <input type="text" id="nama" name="nama"><br><br>
+<div class="container mt-5">
+    <div class="card shadow-lg border-0 rounded-4">
+        <div class="card-header text-center bg-dark text-white rounded-top-4">
+            <h3>Buat Pengguna Baru</h3>
+        </div>
+        <div class="card-body p-4">
+            <form action="{{ route('user.store') }}" method="POST">
+                @csrf
 
-        <label for="npm">NPM:</label><br>
-        <input type="text" id="npm" name="npm"><br><br>
+                <!-- Nama -->
+                <div class="mb-3">
+                    <label for="nama" class="form-label fw-semibold">Nama</label>
+                    <input type="text" class="form-control rounded-3" id="nama" name="nama" placeholder="Masukkan nama lengkap">
+                </div>
 
-        <label for="kelas">Kelas:</label><br>
-        <select name="kelas_id" id="kelas_id">
-            @foreach ($kelas as $kelasItem)
-            <option value="{{ $kelasItem->id }}">{{$kelasItem->nama_kelas }}</option>
-            @endforeach
-        </select><br><br>
+                <!-- NPM -->
+                <div class="mb-3">
+                    <label for="nim" class="form-label fw-semibold">NPM</label>
+                    <input type="text" class="form-control rounded-3" id="nim" name="nim" placeholder="Masukkan NPM">
+                </div>
 
-        <button type="submit">Submit</button>
-    </form>
+                <!-- Kelas -->
+                <div class="mb-4">
+                    <label for="kelas_id" class="form-label fw-semibold">Kelas</label>
+                    <select class="form-select rounded-3" name="kelas_id" id="kelas_id">
+                        @foreach ($kelas as $kelasItem)
+                            <option value="{{ $kelasItem->id }}">{{ $kelasItem->nama_kelas }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <!-- Submit -->
+                <div class="d-grid">
+                    <button type="submit" class="btn btn-primary rounded-3">
+                        <i class="bi bi-save"></i> Simpan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 @endsection

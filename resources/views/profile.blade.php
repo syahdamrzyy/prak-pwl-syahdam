@@ -4,65 +4,129 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Profile CardBox</title>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
   <style>
     body {
       margin: 0;
       height: 100vh;
       display: flex;
-      justify-content: center;
-      align-items: center;
+      flex-direction: column;
       background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
     }
 
-    /* Card utama */
-    .cardbox {
-      background: rgba(255, 255, 255, 0.15);
+    /* Header & Footer */
+    header, footer {
+      background: rgba(255, 255, 255, 0.1);
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
-      padding: 30px 40px;
-      border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      padding: 15px 30px;
       text-align: center;
-      width: 300px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    footer {
+      font-size: 14px;
+      margin-top: auto;
+    }
+
+    /* Container tengah */
+    main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Card */
+    .cardbox {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 40px 35px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4);
+      text-align: center;
+      width: 320px;
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      0% { transform: translateY(50px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
     }
 
     .profile-img {
-      width: 150px;
-      height: 150px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       object-fit: cover;
-      border: 3px solid #fff;
+      border: 4px solid #fff;
       margin-bottom: 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      box-shadow: 0 6px 15px rgba(0,0,0,0.6);
+      transition: transform 0.3s ease;
+    }
+
+    .profile-img:hover {
+      transform: scale(1.08);
     }
 
     .box {
-      background: rgba(255,255,255,0.8);
-      padding: 10px;
-      margin: 10px 0;
-      border-radius: 8px;
-      font-size: 16px;
+      background: rgba(255,255,255,0.85);
+      padding: 12px;
+      margin: 12px 0;
+      border-radius: 10px;
+      font-size: 15px;
       color: #222;
       font-weight: 500;
-      transition: transform 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.25s ease;
+    }
+
+    .box i {
+      color: #2c5364;
+      font-size: 18px;
     }
 
     .box:hover {
-      transform: scale(1.05);
-      background: rgba(255,255,255,1);
+      transform: translateX(5px) scale(1.03);
+      background: #fff;
     }
   </style>
 </head>
 <body>
-  <div class="cardbox">
-    <!-- Foto profil -->
-    <img src="https://i.pinimg.com/1200x/28/26/04/2826047e092c901480fe4c0c4221c110.jpg" alt="Foto Profil" class="profile-img">
+  <!-- Header -->
+  <header>
+    🌟 Profile Mahasiswa
+  </header>
 
-    <!-- Kotak info -->
-    <div class="box">Nama : {{ $nama }}</div>
-    <div class="box">Kelas : {{ $kelas }}</div>
-    <div class="box">NPM : {{ $npm }}</div>
-  </div>
+  <!-- Main content -->
+  <main>
+    <div class="cardbox">
+      <!-- Foto profil -->
+      <img src="" alt="Foto Profil" class="profile-img">
+
+      <!-- Kotak info -->
+      <div class="box"><i class="fa-solid fa-user"></i> Nama : {{ $nama }}</div>
+      <div class="box"><i class="fa-solid fa-school"></i> Kelas : {{ $kelas }}</div>
+      <div class="box"><i class="fa-solid fa-id-card"></i> NPM : {{ $npm }}</div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    © 2025 Syahdam Rizky Firdaus | All Rights Reserved
+  </footer>
 </body>
 </html>
