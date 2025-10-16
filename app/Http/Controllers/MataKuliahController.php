@@ -7,7 +7,9 @@ use App\Models\MataKuliah;
 
 class MataKuliahController extends Controller
 {
-    // Menampilkan daftar 
+    // ======================
+    // Menampilkan daftar MK
+    // ======================
     public function index()
     {
         $data = [
@@ -18,28 +20,67 @@ class MataKuliahController extends Controller
         return view('list_mk', $data);
     }
 
-    // Menampilkan form input untuk tambah data
+    // ======================
+    // Form tambah data
+    // ======================
     public function create()
     {
         return view('create_mk', ['title' => 'Create Mata Kuliah']);
     }
 
-    // Menyimpan data baru ke database
+    // ======================
+    // Simpan data baru
+    // ======================
     public function store(Request $request)
     {
-        // Validasi input
         $request->validate([
             'nama_mk' => 'required|string|max:100',
             'sks' => 'required|integer',
         ]);
 
-        // Simpan ke tabel mata_kuliah
         MataKuliah::create([
             'nama_mk' => $request->input('nama_mk'),
             'sks' => $request->input('sks'),
         ]);
 
-        // Redirect ke halaman daftar mata kuliah
         return redirect()->to('/matakuliah')->with('success', 'Data berhasil ditambahkan!');
+    }
+
+    // ======================
+    // Form Edit Data (UPDATE)
+    // ======================
+    public function edit($id)
+    {
+        $mk = MataKuliah::findOrFail($id);
+        return view('edit_mk', compact('mk'));
+    }
+
+    // ======================
+    // Proses Update Data
+    // ======================
+    public function update(Request $request, $id)
+{
+    $request->validate([
+        'nama_mk' => 'required|string|max:100',
+        'sks' => 'required|integer',
+    ]);
+
+    $mk = MataKuliah::findOrFail($id);
+    $mk->update([
+        'nama_mk' => $request->nama_mk,
+        'sks' => $request->sks,
+    ]);
+
+    return redirect()->route('matakuliah.index')->with('success', 'Data berhasil diperbarui!');
+}
+    // ======================
+    // Hapus Data (DELETE)
+    // ======================
+    public function destroy($id)
+{
+    $mk = MataKuliah::findOrFail($id);
+    $mk->delete();
+
+    return redirect()->route('matakuliah.index')->with('success', 'Data berhasil dihapus!');
 }
 }
