@@ -5,7 +5,7 @@
     <div class="bg-white w-full max-w-lg shadow-md rounded-2xl p-8">
         <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-semibold text-gray-800 flex items-center gap-2">
-                📝 Buat Mata Kuliah Baru
+                ✏️ Edit Mata Kuliah
             </h1>
             <a href="{{ route('matakuliah.index') }}"
                class="text-sm bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1.5 rounded-lg transition">
@@ -13,64 +13,42 @@
             </a>
         </div>
 
-        {{-- 🌿 Alert sukses --}}
+        {{-- Notifikasi sukses --}}
         @if(session('success'))
-            <div class="mb-4 flex items-center gap-2 bg-green-100 border border-green-400 text-green-800 px-4 py-3 rounded-lg">
-                <svg class="w-5 h-5 text-green-600" fill="none" stroke="currentColor" stroke-width="2"
-                    viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round"
-                        d="M5 13l4 4L19 7" />
-                </svg>
-                <span>{{ session('success') }}</span>
+            <div class="bg-green-100 text-green-700 px-4 py-2 rounded mb-4">
+                {{ session('success') }}
             </div>
         @endif
 
-        {{-- 🌸 Alert error --}}
-        @if ($errors->any())
-            <div class="mb-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg">
-                <ul class="list-disc list-inside">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form action="{{ route('matakuliah.store') }}" method="POST" class="space-y-5">
+        <form action="{{ route('matakuliah.update', $mk->id) }}" method="POST" class="space-y-5">
             @csrf
+            @method('PUT')
 
             <div>
                 <label for="nama_mk" class="block text-gray-700 font-medium mb-1">
                     Nama Mata Kuliah
                 </label>
-                <input type="text" id="nama_mk" name="nama_mk"
+                <input type="text" id="nama_mk" name="nama_mk" value="{{ $mk->nama_mk }}"
                        class="w-full border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 rounded-lg p-2.5 outline-none"
-                       placeholder="Masukkan nama mata kuliah" required>
+                       required>
             </div>
 
             <div>
                 <label for="sks" class="block text-gray-700 font-medium mb-1">
                     Jumlah SKS
                 </label>
-                <input type="number" id="sks" name="sks" min="1" max="6"
+                <input type="number" id="sks" name="sks" value="{{ $mk->sks }}"
                        class="w-full border border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 rounded-lg p-2.5 outline-none"
-                       placeholder="Masukkan jumlah SKS" required>
+                       required>
             </div>
 
             <div class="flex justify-end">
                 <button type="submit"
                         class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-2.5 rounded-lg shadow-sm transition">
-                    Simpan
+                    Simpan Perubahan
                 </button>
             </div>
         </form>
     </div>
 </div>
-
-{{-- 🪄 Optional: auto-hide alert --}}
-<script>
-    setTimeout(() => {
-        document.querySelectorAll('.bg-green-100, .bg-red-100').forEach(el => el.remove());
-    }, 3000);
-</script>
 @endsection

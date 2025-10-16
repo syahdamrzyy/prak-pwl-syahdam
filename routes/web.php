@@ -30,3 +30,7 @@ Route::resource('user', UserController::class);
 Route::get('/matakuliah', [MataKuliahController::class, 'index'])->name('matakuliah.index');
 Route::get('/matakuliah/create', [MataKuliahController::class, 'create'])->name('matakuliah.create');
 Route::post('/matakuliah', [MataKuliahController::class, 'store'])->name('matakuliah.store');
+Route::get('/matakuliah/{id}/edit', [MataKuliahController::class, 'edit'])->name('matakuliah.edit');
+
+Route::put('/matakuliah/{id}', [MataKuliahController::class, 'update'])->name('matakuliah.update');
+Route::delete('/matakuliah/{id}', [MataKuliahController::class, 'destroy'])->name('matakuliah.destroy');
